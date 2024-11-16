@@ -37,14 +37,15 @@ class InventoryControllerITest {
 
         ResponseEntity<Item> response = restTemplate.getForEntity("http://localhost:" + port + "/v1/inventory/" + item.getId(), Item.class);
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
+        assertNotNull(response.getBody());
         assertEquals("Laptop", response.getBody().getName());
     }
 
     @Test
     void getItem_ShouldReturn404_WhenItemDoesNotExist() {
         ResponseEntity<Item> response = restTemplate.getForEntity("http://localhost:" + port + "/v1/inventory/999", Item.class);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(404, response.getStatusCode().value());
     }
 
     @Test
@@ -58,7 +59,7 @@ class InventoryControllerITest {
 
         ResponseEntity<Void> response = restTemplate.postForEntity("http://localhost:" + port + "/v1/inventory/" + item.getId() + "/decrease", httpEntity, Void.class);
         System.out.println(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
         Item updatedItem = repository.findById(item.getId()).orElseThrow();
         assertEquals(5, updatedItem.getQuantity());
     }
@@ -74,7 +75,7 @@ class InventoryControllerITest {
 
         ResponseEntity<Void> response = restTemplate.postForEntity("http://localhost:" + port + "/v1/inventory/" + item.getId() + "/decrease", httpEntity, Void.class);
 
-        assertEquals(400, response.getStatusCodeValue());
+        assertEquals(400, response.getStatusCode().value());
         Item unchangedItem = repository.findById(item.getId()).orElseThrow();
         assertEquals(3, unchangedItem.getQuantity());
     }

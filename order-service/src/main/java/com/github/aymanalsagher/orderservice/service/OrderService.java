@@ -38,7 +38,7 @@ public class OrderService {
         boolean available;
         try {
             log.info("Calling [{}]", url);
-            ResponseEntity<Void> res = restTemplate.postForEntity(url, body, Void.class);
+            restTemplate.postForEntity(url, body, Void.class);
             available = true;
         } catch (Exception ex) {
             available = false;

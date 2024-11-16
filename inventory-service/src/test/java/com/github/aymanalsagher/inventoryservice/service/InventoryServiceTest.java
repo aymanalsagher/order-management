@@ -3,7 +3,6 @@ package com.github.aymanalsagher.inventoryservice.service;
 import com.github.aymanalsagher.inventoryservice.model.Item;
 import com.github.aymanalsagher.inventoryservice.repository.ItemRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
