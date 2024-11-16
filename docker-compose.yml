@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  order-service:
+    image: order-service:latest
+    build:
+      context: ./order-service  # Path to the Order Service directory
+    ports:
+      - "8080:8080"  # Expose the Order Service on port 8080
+    depends_on:
+      - inventory-service  # Order Service depends on Inventory Service
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  inventory-service:
+    image: inventory-service:latest
+    build:
+      context: ./inventory-service  # Path to the Inventory Service directory
+    ports:
+      - "8081:8081"  # Expose the Inventory Service on port 8081
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
